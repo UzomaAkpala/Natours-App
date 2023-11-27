@@ -4,10 +4,7 @@ const { getAllTours, createTour, getTour, updateTour, deleteTour } =
   tourController;
 const router = express.Router();
 
-router.param('id', (req, res, next, val) => {
-  console.log(`Tour is is ${val}`);
-  next();
-});
+router.param('id', tourController.checkId);
 
 router.route('/').get(getAllTours).post(createTour);
 
