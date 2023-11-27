@@ -131,33 +131,20 @@ const deleteUser = (req, res) => {
   });
 };
 
-// ROUTING OPTION
-//app.get('/api/v1/tours', getAllTours);
-
-//app.post('/api/v1/tours', createTour);
-
-// app.get('/api/v1/tours/:id', getTour);
-
-// app.patch('/api/v1/tours/:id', updateTour);
-
-// app.delete('/api/v1/tours/:id', deleteTour);
-
 // 3) ROUTES
-app.route('/api/v1/tours').get(getAllTours).post(createTour);
+const tourRouter = express.Router();
+const userRouter = express.Router();
 
-app
-  .route('/api/v1/tours/:id')
-  .get(getTour)
-  .patch(updateTour)
-  .delete(deleteTour);
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
 
-app.route('/api/v1/users').get(getAllUsers).post(createUser);
+tourRouter.route('/').get(getAllTours).post(createTour);
 
-app
-  .route('/api/v1/users/:id')
-  .get(getUser)
-  .patch(updateUser)
-  .delete(deleteUser);
+tourRouter.route('/:id').get(getTour).patch(updateTour).delete(deleteTour);
+
+userRouter.route('/').get(getAllUsers).post(createUser);
+
+userRouter.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
 
 //SERVER
 app.listen(3000, () => {
