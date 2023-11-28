@@ -20,8 +20,7 @@ mongoose
 
 const toursSchema = new mongoose.Schema({
   name: String,
-  rating,
-  Number,
+  rating: Number,
   price: Number,
 });
 
