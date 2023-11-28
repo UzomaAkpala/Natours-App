@@ -4,7 +4,7 @@ const { getAllTours, createTour, getTour, updateTour, deleteTour, checkBody } =
   tourController;
 const router = express.Router();
 
-router.param('id', tourController.checkId);
+//router.param('id', tourController.checkId);
 
 router.route('/').get(getAllTours).post(checkBody, createTour);
 
