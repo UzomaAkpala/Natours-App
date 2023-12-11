@@ -14,13 +14,23 @@ const {
   getMonthlyPlan,
 } = tourController;
 
+const { protect } = authController;
+
 router.route('/top-5-cheap').get(aliasTopTours, getAllTours);
 
 router.route('/tour-stats').get(getTourStats);
 router.route('/monthly-plan/:year').get(getMonthlyPlan);
 
-router.route('/').get(authController.protect, getAllTours).post(createTour);
+router.route('/').get(protect, getAllTours).post(createTour);
 
-router.route('/:id').get(getTour).patch(updateTour).delete(deleteTour);
+router
+  .route('/:id')
+  .get(getTour)
+  .patch(updateTour)
+  .delete(
+    protect,
+    authController.restrictTo('admin', 'lead-guide'),
+    deleteTour
+  );
 
 module.exports = router;
